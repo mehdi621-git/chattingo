@@ -2,7 +2,7 @@
 
 This guide documents the journey of deploying **Chattingo** (React frontend + backend) on a VPS using **Docker**, **Nginx**, **Let's Encrypt**, and **Jenkins CI/CD**.  
 Along the way, we solved some common errors — this README explains them so you won’t struggle like we did.  
-
+and Finally ------>>>> https://chattingo.duckdns.org
 ---
 
 ## 📌 Project Setup
