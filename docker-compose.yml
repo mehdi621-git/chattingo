@@ -29,7 +29,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/chattingo_db?createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: chattingo123   # must match MYSQL_ROOT_PASSWORD
-      CORS_ALLOWED_ORIGINS: http://localhost:3000,http://72.60.111.48:3000,http://frontend:80
+      CORS_ALLOWED_ORIGINS: http://localhost:3000,http://72.60.111.48:3000,http://72.60.111.48:80,http://chattingo.duckdns.org/,https://chattingo.duckdns.org/
       CORS_ALLOWED_METHODS: GET,POST,PUT,DELETE,OPTIONS
       CORS_ALLOWED_HEADERS: "*"
       SPRING_PROFILES_ACTIVE: development
