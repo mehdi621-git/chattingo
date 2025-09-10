@@ -1,0 +1,74 @@
+version: "3.4"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: chattingo123
+      MYSQL_DATABASE: chattingo_db
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+     - "3306:3306"
+    networks:
+     - hackhaton
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pchattingo123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  backend:
+    build:
+      context: /root/prac/chattingo/backend
+      dockerfile: Dockerfile
+    image: mehdi621docker/chattingiobackend:latest
+    container_name: backend
+    environment:
+      JWT_SECRET: Vdjhj2mlFa5he3aJ5OMFXZi7i5fI2HqOsNy/bfZCLIjr4dBktiL1n7QdNlOb93eloIqVNQusnfkvYcUpK6l7kA==
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/chattingo_db?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: chattingo123   # must match MYSQL_ROOT_PASSWORD
+      CORS_ALLOWED_ORIGINS: http://localhost:3000,http://72.60.111.48:3000,http://frontend:80
+      CORS_ALLOWED_METHODS: GET,POST,PUT,DELETE,OPTIONS
+      CORS_ALLOWED_HEADERS: "*"
+      SPRING_PROFILES_ACTIVE: development
+    ports:
+      - 5000:8080
+    networks:
+      - hackhaton
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  frontend:
+    build:
+      context: /root/prac/chattingo/frontend
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: http://72.60.111.48:5000
+    image: mehdi621docker/chattingofrontend:latest
+    container_name: frontend
+    ports:
+      - "3000:80"
+    networks:
+      - hackhaton
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+networks:
+    hackhaton:
+
+volumes:
+    mysql_data:
