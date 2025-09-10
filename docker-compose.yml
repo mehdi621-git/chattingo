@@ -22,7 +22,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    image: mehdi621docker/chattingiobackend:latest
+    image: mehdi621docker/chattingobackend:latest
     container_name: backend
     environment:
       JWT_SECRET: Vdjhj2mlFa5he3aJ5OMFXZi7i5fI2HqOsNy/bfZCLIjr4dBktiL1n7QdNlOb93eloIqVNQusnfkvYcUpK6l7kA==
