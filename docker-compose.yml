@@ -55,7 +55,7 @@ services:
     image: mehdi621docker/chattingofrontend:latest
     container_name: frontend
     ports:
-      - "3000:80"
+      - "80:80"
       - "443:443"
     networks:
       - hackhaton
